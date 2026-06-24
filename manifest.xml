@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://microsoft.com" xmlns:xsi="http://w3.org" xsi:type="TaskPaneApp">
+  <Id>d3b07384-d112-4217-a162-a521a521a521</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Selsi Legal Tech</ProviderName>
+  <DefaultLocale>ar-TN</DefaultLocale>
+  <DisplayName DefaultValue="المساعد القانوني التونسي" />
+  <Description DefaultValue="إضافة ذكية لبرنامج وورد للبحث في الفصول والمجلة الجزائية التونسية." />
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://github.com" />
+  <Hosts>
+    <Host Name="Document" />
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+</OfficeApp>
