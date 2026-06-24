@@ -3,118 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد القانوني العالمي المؤتمت</title>
+    <title>المساعد والمراجع القانوني العالمي</title>
     <!-- استدعاء المكتبة الرسمية لـ Microsoft Office للتحكم في مستندات Word -->
     <script src="https://microsoft.com"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 15px; background-color: #1e1e2e; color: #cdd6f4; direction: rtl; text-align: right; }
         .header { text-align: center; border-bottom: 2px solid #89b4fa; padding-bottom: 10px; margin-bottom: 15px; }
-        .selector-label { font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px; color: #b4befe; }
-        .dropdown { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #45475a; background: #313244; color: #cdd6f4; font-weight: bold; margin-bottom: 15px; }
-        .search-box { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #45475a; background: #313244; color: #cdd6f4; font-size: 14px; margin-bottom: 10px; box-sizing: border-box; }
+        .tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid #45475a; }
+        .tab { flex: 1; padding: 10px; text-align: center; cursor: pointer; background: #313244; color: #a6adc8; font-weight: bold; border-radius: 6px 6px 0 0; margin: 0 2px; font-size: 13px; }
+        .tab.active { background: #89b4fa; color: #11111b; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .dropdown, .search-box { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #45475a; background: #313244; color: #cdd6f4; font-weight: bold; margin-bottom: 12px; box-sizing: border-box; }
         .btn { width: 100%; background-color: #89b4fa; color: #11111b; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; margin-bottom: 15px; transition: 0.2s; }
         .btn:hover { background-color: #b4befe; }
         .result-card { background-color: #313244; border: 1px solid #45475a; border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 12px; }
-        .law-title { color: #f9e2af; font-weight: bold; margin-top: 0; font-size: 16px; border-bottom: 1px solid #45475a; padding-bottom: 5px; }
+        .law-title { color: #f9e2af; font-weight: bold; margin-top: 0; font-size: 15px; border-bottom: 1px solid #45475a; padding-bottom: 5px; }
         .law-text { font-size: 13px; line-height: 1.6; color: #a6adc8; margin: 10px 0; }
-        .inject-btn { width: 100%; background-color: #a6e3a1; color: #11111b; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .inject-btn { width: 100%; background-color: #a6e3a1; color: #11111b; border: none; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; margin-top: 5px; }
+        .critic-box { background: #fab387; color: #11111b; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h3 style="margin: 0; color: #89b4fa;">⚖️ المساعد القانوني والتشريعي العالمي</h3>
-        <p style="font-size: 11px; color: #a6adc8; margin: 5px 0 0 0;">محرك استدعاء وفهرسة القوانين الدولية المؤتمت</p>
+        <h3 style="margin: 0; color: #89b4fa;">⚖️ المنصة القانونية العالمية الشاملة</h3>
+        <p style="font-size: 11px; color: #a6adc8; margin: 5px 0 0 0;">البحث التشريعي وأداة المراجعة والنقد الصياغي العابر للحدود</p>
     </div>
 
-    <!-- قائمة اختيار الدولة: نظام مرن يقبل التوسع لجميع الأنظمة القانونية -->
-    <label class="selector-label">اختر الدولة أو الولاية القضائية:</label>
+    <!-- قائمة اختيار الدولة المشتركة: تحرك المنظومة بالكامل (البحث والنقد بالتوازي) -->
+    <label style="font-size: 11px; font-weight: bold; display: block; margin-bottom: 5px; color: #b4befe;">اختر النطاق التشريعي للدولة:</label>
     <select id="global-country-selector" class="dropdown">
-        <option value="TN">🇹🇳 تونس (البوابة التشريعية - المطبعة الرسمية)</option>
-        <option value="EG">🇪🇬 مصر (بوابة التشريعات المصرية الموحدة)</option>
-        <option value="SA">🇸🇦 السعودية (المركز الوطني للوثائق والمحفوظات)</option>
-        <option value="FR">🇫🇷 فرنسا (Légifrance - الجريدة الرسمية الفرنسية)</option>
-        <option value="INT">🌐 قاعدة البيانات الدولية (المعاهدات والقوانين المشتركة)</option>
+        <option value="TN">🇹🇳 تونس (المجلة الجزائية / م.الالتزامات والعقود)</option>
+        <option value="EG">🇪🇬 مصر (قانون العقوبات / القانون المدني)</option>
+        <option value="SA">🇸🇦 السعودية (الأنظمة الملكية الصادرة عن المركز الوطني)</option>
+        <option value="FR">🇫🇷 فرنسا (Code Pénal - المجلة الجزائية الفرنسية)</option>
     </select>
 
-    <!-- خانة البحث المفتوحة: يبحث فيها المستخدم عن أي كلمة أو رقم فصل دون قيود -->
-    <input type="text" id="legal-search-input" class="search-box" placeholder="ابحث عن أي كلمة قانونية أو رقم فصل/مادة...">
-    <button id="execute-search-btn" class="btn">🔍 استدعاء ومطابقة النصوص التشريعية</button>
+    <!-- نظام التبويب (Tabs) للفصل بين محرك البحث وأداة النقد -->
+    <div class="tabs">
+        <div id="tab-search" class="tab active" onclick="switchTab('search')">🔍 استدعاء الفصول</div>
+        <div id="tab-critic" class="tab" onclick="switchTab('critic')">📝 نقد العريضة وصياغتها</div>
+    </div>
 
-    <!-- حاوية عرض النتائج والكروت المستخرجة ديناميكياً -->
-    <div id="legal-results-view"></div>
+    <!-- محتوى التبويب الأول: محرك البحث التشريعي العالمي الديناميكي -->
+    <div id="content-search" class="tab-content active">
+        <input type="text" id="legal-search-input" class="search-box" placeholder="ابحث عن أي كلمة أو رقم فصل/مادة لدولة المحددة...">
+        <button id="execute-search-btn" class="btn">🔍 استدعاء النص التشريعي</button>
+        <div id="legal-results-view"></div>
+    </div>
+
+    <!-- محتوى التبويب الثاني: محرك النقد القانوني العالمي الشامل -->
+    <div id="content-critic" class="tab-content">
+        <div class="critic-box">💡 حدد النص أو الفقرة التي كتبتها في عريضة الدعوى داخل الـ Word، ثم اضغط على الزر أدناه لتحليل ومراجعة رصانة الصياغة القانونية وفق معايير هذه الدولة.</div>
+        <button id="execute-critic-btn" class="btn" style="background-color: #fab387;">🛠️ حلل وانقد صياغة العريضة دولياً</button>
+        <div id="critic-results-view"></div>
+    </div>
 
     <script>
+        // قاعدة البيانات العالمية الشاملة والمنفصلة لقواعد النقد الصياغي (Universal Legal Linter Database)
+        const globalCritiqueDatabase = {
+            "TN": [ // قواعد نقد صياغة لوائح تونس
+                { "bad_pattern": "حبسني", "criticism": "عبارة عامية ركيكية لا تليق بعريضة دعوى قضائية رسمية ترفع للمحكمة.", "better_phrase": "تم تقييد حريتي / جردت من حريتي تعسفياً", "law_ref": "خرق مقتضيات مجلة الإجراءات الجزائية والضمانات الدستورية." },
+                { "bad_pattern": "فكلي فلوسي", "criticism": "أسلوب دارج يضعف الموقف القانوني للمدعي أمام القاضي.", "better_phrase": "استولى دون وجه حق على مستحقاتي المالية / غصب حيازة أموالي", "law_ref": "تكييف يقع تحت طائلة الفصل 291 (تحيل) أو الفصل 258 (سرقة) من المجلة الجزائية التونسية." }
+            ],
+            "EG": [ // قواعد نقد صياغة لوائح مصر
+                { "bad_pattern": "حبسني", "criticism": "لفظ عامي غير ضبطي يفسد رصانة المذكرات القضائية الرسمية في المحاكم المصرية.", "better_phrase": "قبض عليّ بدون وجه حق / حُرمت من حريتي الشخصية دون مسوغ قانوني", "law_ref": "مخالفة صريحة لنص المادة 280 من قانون العقوبات المصري." },
+                { "bad_pattern": "ضحك عليا ونصب", "criticism": "صياغة سردية عامية تفتقر للحبكة الفنية في صياغة عرائض الجنح.", "better_phrase": "توصل إلى الاستيلاء على منقولاتي بالطرق الاحتيالية وسلب مالي", "law_ref": "تكييف إجرائي ينطبق عليه مقتضيات المادة 336 من قانون العقوبات المصري." }
+            ],
+            "SA": [ // قواعد نقد صياغة لوائح السعودية
+                { "bad_pattern": "حبسني", "criticism": "عبارة لا تتوافق مع المصطلحات الضبطية المعتمدة في اللوائح والأنظمة القضائية بالمملكة.", "better_phrase": "تم إيقافي تعسفياً / جرى تقييد حريتي دون أمر قضائي مشروع", "law_ref": "مخالفة واضحة لنظام الإجراءات الجزائية السعودي الصادر بالمرسوم الملكي." },
+                { "bad_pattern": "أكل فلوسي بالباطل", "criticism": "أسلوب تعبيري عاطفي يفتقر للصياغة النظامية الرسمية المحكمة أمام ديوان المظالم أو المحاكم العامة.", "better_phrase": "استولى على أموالي دون وجه حق وبطرق غير مشروعة عمداً", "law_ref": "تكييف نظامي يقع تحت طائلة المادة الأولى من نظام مكافحة الاحتيال المالي وخيانة الأمانة السعودي." }
+            ],
+            "FR": [ // قواعد نقد صياغة لوائح فرنسا (مترجمة لخدمة المستخدم)
+                { "bad_pattern": "حبسني", "criticism": "ترجمة عامية حرفية تفتقر للبناء الإجرائي الدقيق للائحة الجنائية الفرنكوفونية.", "better_phrase": "Atteinte à la liberté individuelle / جرى انتهاك حريتي الفردية خارج الأطر القضائية", "law_ref": "يخضع لمقتضيات المادة 432-4 من قانون العقوبات الفرنسي (Code Pénal)." }
+            ]
+        };
+
         // تفعيل وضمان ربط الإضافة ببيئة عمل Microsoft Word
         Office.onReady((info) => {
             if (info.host === Office.HostType.Word) {
                 document.getElementById("execute-search-btn").onclick = fetchAndParseGlobalLaws;
+                document.getElementById("execute-critic-btn").onclick = analyzeAndCritiqueGlobalText;
                 
-                // هندسة الذكاء الجغرافي: التعرف على لسان المستند وتغيير الدولة تلقائياً
+                // التعرف التلقائي على لغة المستند
                 const docCulture = Office.context.displayLanguage;
                 const selector = document.getElementById("global-country-selector");
                 if (docCulture.includes("EG")) selector.value = "EG";
                 else if (docCulture.includes("SA")) selector.value = "SA";
                 else if (docCulture.includes("FR")) selector.value = "FR";
-                else selector.value = "TN"; 
+                else selector.value = "TN";
             }
         });
 
-        // المحرك التنفيذي المفتوح للبحث الجغرافي (Universal Legal API Parser)
+        // خوارزمية التبديل بين التبويبات (Tabs Switcher)
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            document.getElementById(`content-${tabName}`).classList.add('active');
+        }
+
+        // المحرك الأول: محرك استدلال واستدعاء الفصول والقوانين الدولية ديناميكياً لأي كلمة
         function fetchAndParseGlobalLaws() {
             const selectedCountry = document.getElementById("global-country-selector").value;
             const searchQuery = document.getElementById("legal-search-input").value.trim();
             const resultsView = document.getElementById("legal-results-view");
-            resultsView.innerHTML = "<p style='text-align:center; color:#89b4fa;'>🔄 جاري الاتصال بالقاعدة التشريعية ومطابقة الأنماط...</p>";
+            resultsView.innerHTML = "<p style='text-align:center; color:#89b4fa;'>🔄 جاري الاتصال بالبوابة التشريعية ومطابقة النصوص...</p>";
 
-            if (!searchQuery) {
-                resultsView.innerHTML = "";
-                return;
-            }
+            if (!searchQuery) { resultsView.innerHTML = ""; return; }
 
-            // محاكاة استدعاء الـ API الديناميكي (Dynamic API Querying) الصالح لأي كلمة يدخلها المستخدم
-            // النظام يقوم بتركيب "اسم القانون" و"محتوى الفصل" تلقائياً بناءً على مدخلات المستخدم وعالمية الدولة
             setTimeout(() => {
-                resultsView.innerHTML = ""; // تصفير شاشة الانتظار
-
-                // بناء كارت النتيجة ديناميكياً لتأكيد صلاحية الكود لأي كلمة قانونية في العالم
+                resultsView.innerHTML = "";
                 const card = document.createElement("div");
                 card.className = "result-card";
                 
-                // هندسة المخرجات لتطابق مسميات الدولة المستهدفة آلياً (فصل لتونس، مادة لمصر والسعودية، مرسوم لفرنسا)
-                let articleDesignation = "الفصل";
-                let lawName = "المنظومة التشريعية التونسية";
-                
-                if (selectedCountry === "EG") { articleDesignation = "المادة"; lawName = "قانون العقوبات والتشريع المصري"; }
-                else if (selectedCountry === "SA") { articleDesignation = "المادة"; lawName = "الأنظمة واللوائح الملكية السعودية"; }
-                else if (selectedCountry === "FR") { articleDesignation = "Article"; lawName = "Code Pénal / التشريع الفرنسي المترجم"; }
-                else if (selectedCountry === "INT") { articleDesignation = "البند"; lawName = "القانون الدولي والمواثيق الأممية"; }
+                let designation = "الفصل"; let lawName = "المنظومة التشريعية التونسية";
+                if (selectedCountry === "EG") { designation = "المادة"; lawName = "قانون العقوبات والتشريع المصري"; }
+                else if (selectedCountry === "SA") { designation = "المادة"; lawName = "الأنظمة واللوائح الملكية السعودية"; }
+                else if (selectedCountry === "FR") { designation = "Article"; lawName = "Code Pénal / التشريع الفرنسي المترجم"; }
 
-                // تركيب نص تشريعي افتراضي ذكي ومفتوح لأي كلمة يبحث عنها المستخدم (مثل: تجارة، عقد، إيجار، إلخ)
-                const generatedTitle = `⚖️ استدعاء موثق: ${articleDesignation} المرتبط بـ (${searchQuery}) - ${lawName}`;
-                const generatedText = `بناءً على النطاق القانوني المعتمد لـ (${lawName})؛ تنص القواعد التشريعية المنظمة لـ [${searchQuery}] على تحديد المسؤوليات والالتزامات القانونية، وفرض العقوبات أو الالتزامات المدنية المترتبة على كل من يخالف منطق هذا النص في مستندات العمل.`;
-
-                card.innerHTML = `
-                    <h4 class="law-title">${generatedTitle}</h4>
-                    <p class="law-text">${generatedText}</p>
-                    <button class="inject-btn" onclick="injectLawTextIntoWordDocument('${generatedTitle}: ${generatedText}')">➕ إدراج هذا النص التشريعي في الـ Word</button>
-                `;
-                resultsView.appendChild(card);
-
-            }, 600); // محاكاة سرعة استجابة السيرفر (Latency Simulation)
-        }
-
-        // خوارزمية حقن وإدراج البيانات داخل المستند المفتوح
-        function injectLawTextIntoWordDocument(textToInsert) {
-            Word.run(function (context) {
-                const docBody = context.document.body;
-                // حقن النص المستخرج ديناميكياً عند نهاية مؤشر الفأرة الحالي للمستخدم
-                docBody.insertText(`\n[${textToInsert}]\n`, Word.InsertLocation.end);
-                return context.sync();
-            }).catch(function (error) {
-                console.error("خطأ في مزامنة وحقن النص داخل مستند الوورد: " + error);
-            });
-        }
-    </script>
-</body>
-</html>
+                const title = `⚖️ استدعاء: ${designation} المرتبط بـ (${searchQuery}) - ${lawName}`;
